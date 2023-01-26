@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"path/filepath"
 	"strconv"
 	"text/template"
 )
@@ -16,6 +17,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	files := []string{
 		"./ui/html/home.page.html",
 		"./ui/html/base.layout.html",
+		"./ui/html/footer.partial.html",
 	}
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
@@ -33,7 +35,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 func showSnippet(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if err != nil || id < 1 {
-		http.Error(w, "Use A Positive Integer", http.StatusBadRequest)
+		http.Error(w, "Use a positive integer", http.StatusBadRequest)
 		return
 	}
 	fmt.Fprintf(w, "Display a specific snippet with ID %d...", id)
@@ -49,4 +51,8 @@ func createSnippet(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Write([]byte(`{"name":"Alex"}`))
+}
+
+func downloadHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, filepath.FromSlash(filepath.Clean("./ui/static/img/logo.png")))
 }
