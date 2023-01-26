@@ -54,5 +54,6 @@ func createSnippet(w http.ResponseWriter, r *http.Request) {
 }
 
 func downloadHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, filepath.FromSlash(filepath.Clean("./ui/static/img/logo.png")))
+	path := "./ui/static/img/logo.png"
+	http.ServeFile(w, r, filepath.FromSlash(filepath.Clean(path)))
 }
