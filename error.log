@@ -1,0 +1,1 @@
+ERROR	2023/01/27 03:52:41 /home/lyrx/Desktop/go-files/snippetbox/cmd/web/main.go:46: listen tcp :4000: bind: address already in use
