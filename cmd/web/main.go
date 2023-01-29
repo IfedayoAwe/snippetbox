@@ -17,39 +17,33 @@ func main() {
 	var err error
 	mydir, err := os.Getwd()
 	if err != nil {
-		log.Println(err.Error())
+		log.Fatal(err.Error())
 	}
 	infoFile, err := os.OpenFile(filepath.Join(mydir, "/logs", "/info.log"), os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	defer infoFile.Close()
-	infoLog := log.New(infoFile, "INFO\t", log.Ldate|log.Ltime)
 	errFile, err := os.OpenFile(filepath.Join(mydir, "/logs/error.log"), os.O_RDWR|os.O_CREATE, 0666)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 	defer errFile.Close()
-	errorLog := log.New(errFile, "ERROR\t", log.Ldate|log.Ltime|log.Llongfile)
+	infoLog := log.New(infoFile, "INFO\t", log.Ldate|log.Ltime)
+	errorLog := log.New(errFile, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	app := &application{
 		errorLog: errorLog,
 		infoLog:  infoLog,
 	}
 
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", app.home)
-	mux.HandleFunc("/snippet", app.showSnippet)
-	mux.HandleFunc("/snippet/create", app.createSnippet)
-	mux.Handle("/snippet/download/", http.StripPrefix("/snippet/download", http.HandlerFunc(downloadHandler)))
-	fileServer := http.FileServer(http.Dir("./ui/static/"))
-	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
 	addr := flag.String("addr", ":4000", "HTTP network address")
 	flag.Parse()
+
 	srv := &http.Server{
 		Addr:     *addr,
 		ErrorLog: errorLog,
-		Handler:  mux,
+		Handler:  app.routes(),
 	}
 	infoLog.Printf("Starting server on %s", *addr)
 	err = srv.ListenAndServe()
