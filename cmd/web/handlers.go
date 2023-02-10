@@ -23,6 +23,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 
 	data := &templateData{Snippets: s}
 	app.render(w, r, "home.page.html", data)
+
 }
 
 func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
@@ -43,7 +44,7 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 
 	data := &templateData{Snippet: s}
 	app.render(w, r, "show.page.html", data)
-	fmt.Fprintf(w, "%v", s)
+
 }
 
 func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
