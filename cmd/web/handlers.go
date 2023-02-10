@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strconv"
 
-	// "text/template"
+	"text/template"
 
 	"github.com/IfedayoAwe/snippetbox/pkg/models"
 )
@@ -22,23 +22,22 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, err)
 		return
 	}
-	for _, snippet := range s {
-		fmt.Fprintf(w, "%v\n", snippet)
+
+	data := &templateData{Snippets: s}
+	files := []string{
+		"./ui/html/home.page.html",
+		"./ui/html/base.layout.html",
+		"./ui/html/footer.partial.html",
 	}
-	// files := []string{
-	// 	"./ui/html/home.page.html",
-	// 	"./ui/html/base.layout.html",
-	// 	"./ui/html/footer.partial.html",
-	// }
-	// ts, err := template.ParseFiles(files...)
-	// if err != nil {
-	// 	app.serverError(w, err)
-	// 	return
-	// }
-	// err = ts.Execute(w, nil)
-	// if err != nil {
-	// 	app.serverError(w, err)
-	// }
+	ts, err := template.ParseFiles(files...)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+	err = ts.Execute(w, data)
+	if err != nil {
+		app.serverError(w, err)
+	}
 }
 
 func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
@@ -55,6 +54,25 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 			app.serverError(w, err)
 		}
 		return
+	}
+
+	data := &templateData{Snippet: s}
+
+	files := []string{
+		"./ui/html/show.page.html",
+		"./ui/html/base.layout.html",
+		"./ui/html/footer.partial.html",
+	}
+
+	ts, err := template.ParseFiles(files...)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	err = ts.Execute(w, data)
+	if err != nil {
+		app.serverError(w, err)
 	}
 	fmt.Fprintf(w, "%v", s)
 }
