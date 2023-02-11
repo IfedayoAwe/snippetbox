@@ -48,8 +48,6 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) createSnippet(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	w.Header()["Date"] = nil
 	if r.Method != http.MethodPost {
 		w.Header().Add("Allow", http.MethodPost)
 		app.clientError(w, http.StatusMethodNotAllowed)
