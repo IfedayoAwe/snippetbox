@@ -20,9 +20,9 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		app.serverError(w, err)
 		return
 	}
-
-	data := &templateData{Snippets: s}
-	app.render(w, r, "home.page.html", data)
+	app.render(w, r, "home.page.html", &templateData{
+		Snippets: s,
+	})
 
 }
 
@@ -41,9 +41,9 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 		}
 		return
 	}
-
-	data := &templateData{Snippet: s}
-	app.render(w, r, "show.page.html", data)
+	app.render(w, r, "show.page.html", &templateData{
+		Snippet: s,
+	})
 
 }
 
