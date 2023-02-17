@@ -25,5 +25,7 @@ func (app *application) routes() http.Handler {
 	mux.Get("/static/", http.StripPrefix("/static", fileServer))
 	mux.Get("/snippet/download/", http.StripPrefix("/snippet/download", http.HandlerFunc(app.downloadHandler)))
 
+	mux.Get("/ping", http.HandlerFunc(ping))
+
 	return standardMiddleware.Then(mux)
 }

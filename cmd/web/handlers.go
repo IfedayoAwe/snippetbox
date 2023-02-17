@@ -173,3 +173,7 @@ func (app *application) downloadHandler(w http.ResponseWriter, r *http.Request) 
 	path := "./ui/static/img/logo.png"
 	http.ServeFile(w, r, filepath.FromSlash(filepath.Clean(path)))
 }
+
+func ping(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("OK"))
+}
