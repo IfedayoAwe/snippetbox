@@ -55,6 +55,22 @@ func (app *application) showSnippet(w http.ResponseWriter, r *http.Request) {
 
 }
 
+func (app *application) userProfile(w http.ResponseWriter, r *http.Request) {
+	authenticatedUserID := app.session.GetInt(r, "authenticatedUserID")
+	user, err := app.users.Get(authenticatedUserID)
+	if err != nil {
+		if errors.Is(err, models.ErrNoRecord) {
+			app.notFound(w)
+		} else {
+			app.serverError(w, err)
+		}
+	}
+	app.render(w, r, "profile.page.html", &templateData{
+		User: user,
+	})
+
+}
+
 func (app *application) createSnippetForm(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, "create.page.html", &templateData{
 		Form: forms.New(nil),
