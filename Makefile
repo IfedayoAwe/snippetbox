@@ -1,4 +1,4 @@
-SOURCES := $(wildcard *.go cmd/*/*.go pkg/*/*/*.go)
+SOURCES := $(wildcard *.go cmd/*/*.go pkg/*/*.go)
 
 VERSION=$(shell git describe --tags --long --dirty --always 2>/dev/null)
 
