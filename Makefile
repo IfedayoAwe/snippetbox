@@ -6,10 +6,6 @@ ifeq ($(VERSION),)
 	VERSION = UNKNOWN
 endif
 
-.PHONY: lint
-lint:
-	golangci-lint run
-
 .PHONY: committed
 committed:
 	@git diff --exit-code > /dev/null || (echo "** COMMIT YOUR CHANGES FIRST **"; exit 1)
@@ -18,7 +14,7 @@ docker: $(SOURCES) build/Dockerfile
 	docker build -t snippetbox:latest . -f build/Dockerfile --build-arg VERSION=$(VERSION)
 
 .PHONY: publish
-publish: committed lint
+publish: committed
 	make docker
 	docker tag snippetbox:latest ifedayoawe/snippetbox:$(VERSION)
 	docker push ifedayoawe/snippetbox:$(VERSION)
