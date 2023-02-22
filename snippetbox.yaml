@@ -1,6 +1,16 @@
 version: '3.8'
 
 services:
+  snippetbox:
+    image: snippetbox:latest
+    container_name: snippetbox
+    ports: 
+      - '4000:4000'
+    environment:
+      - DBUSER=${DBUSER}
+      - DBPASS=${DBPASS}
+      - DBNAME=${DBNAME}
+
   snippetbox_db:
     image: mysql:5.7
     container_name: snippetbox_db
