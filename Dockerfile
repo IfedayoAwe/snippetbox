@@ -24,6 +24,6 @@ COPY --from=builder /home/snippetbox/snippetbox /home/snippetbox
 
 USER snippetbox
 WORKDIR /home
-EXPOSE 8081
+EXPOSE 4000
 
 ENTRYPOINT ["/home/snippetbox"]
