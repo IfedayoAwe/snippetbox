@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  snippetbox_db:
+    image: mysql:5.7
+    container_name: snippetbox_db
+    restart: unless-stopped
+    ports: 
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: snippetbox
+      MYSQL_ROOT_PASSWORD: 654321
+    volumes: 
+      - db-data:/var/lib/mysql
+
+volumes: 
+  db-data:
+    driver: local

@@ -2,13 +2,16 @@ package mysql
 
 import (
 	"database/sql"
+	"fmt"
 	"os"
 	"testing"
 )
 
 func newTestDB(t *testing.T) (*sql.DB, func()) {
 
-	db, err := sql.Open("mysql", "root:654321@/test_snippetbox?parseTime=true&multiStatements=true")
+	dbUser, dbPass := os.Getenv("DBUSER"), os.Getenv("DBPASS")
+	conf := fmt.Sprintf("%s:%s@/%s?parseTime=true&multiStatements=true", dbUser, dbPass, "test_snippetbox")
+	db, err := sql.Open("mysql", conf)
 	if err != nil {
 		t.Fatal(err)
 	}

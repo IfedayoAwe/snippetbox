@@ -18,6 +18,8 @@ import (
 	"github.com/golangcollege/sessions"
 )
 
+var version string // do not remove or modify
+
 type contextKey string
 
 const contextKeyIsAuthenticated = contextKey("isAuthenticated")
