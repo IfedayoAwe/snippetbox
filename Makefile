@@ -1,6 +1,6 @@
 SOURCES := $(wildcard *.go cmd/*/*.go pkg/*/*/*.go)
 
-VERSION=$(shell git describe --tags --long --dirty 2>/dev/null)
+VERSION=$(shell git describe --tags --long --dirty --always 2>/dev/null)
 
 ifeq ($(VERSION),)
 	VERSION = UNKNOWN
@@ -14,7 +14,7 @@ docker: $(SOURCES) build/Dockerfile
 	docker build -t snippetbox:latest . -f build/Dockerfile --build-arg VERSION=$(VERSION)
 
 .PHONY: publish
-publish: committed
+publish: committed lint
 	make docker
-	docker tag  sort-anim:latest matthol2/sort-anim:$(VERSION)
-	docker push matthol2/sort-anim:$(VERSION)
+	docker tag  sort-anim:latest ifedayoawe/snippetbox:$(VERSION)
+	docker push ifedayoawe/snippetbox:$(VERSION)
