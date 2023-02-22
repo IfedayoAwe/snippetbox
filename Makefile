@@ -20,5 +20,5 @@ docker: $(SOURCES) build/Dockerfile
 .PHONY: publish
 publish: committed lint
 	make docker
-	docker tag sort-anim:latest ifedayoawe/snippetbox:$(VERSION)
+	docker tag snippetbox:latest ifedayoawe/snippetbox:$(VERSION)
 	docker push ifedayoawe/snippetbox:$(VERSION)
