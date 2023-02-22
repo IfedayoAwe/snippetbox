@@ -1,6 +1,6 @@
 SOURCES := $(wildcard *.go cmd/*/*.go pkg/*/*/*.go)
 
-VERSION=$(shell git describe --tags --long --dirty --always 2>/dev/null)
+VERSION=$(shell git describe --tags --long --dirty --always)
 
 ifeq ($(VERSION),)
 	VERSION = UNKNOWN
