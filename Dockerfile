@@ -1,9 +1,5 @@
 FROM golang:1.19-alpine AS builder
 
-RUN /sbin/apk update && \
-	/sbin/apk --no-cache add ca-certificates git tzdata && \
-	/usr/sbin/update-ca-certificates
-
 RUN adduser -D -g '' snippetbox
 WORKDIR /home/snippetbox
 
