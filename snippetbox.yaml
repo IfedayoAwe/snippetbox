@@ -4,6 +4,7 @@ services:
   snippetbox:
     image: snippetbox:latest
     container_name: snippetbox
+    restart: unless-stopped
     ports: 
       - '4000:4000'
     environment:
