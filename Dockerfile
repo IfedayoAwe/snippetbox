@@ -26,8 +26,6 @@ RUN addgroup -S snippetbox && adduser -S -G snippetbox snippetbox
 
 # Create the logs directory with the appropriate permissions
 RUN mkdir -p /home/snippetbox/logs && chown -R snippetbox:snippetbox /home/snippetbox/logs && chmod 755 /home/snippetbox/logs
-
-USER snippetbox
 WORKDIR /home/snippetbox
 EXPOSE 4000
 
