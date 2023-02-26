@@ -20,15 +20,15 @@ FROM busybox:musl
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=builder /etc/passwd /etc/passwd
-COPY --from=builder /home/snippetbox/snippetbox /home/snippetbox
+COPY --from=builder /home/snippetbox/snippetbox /home/snippetbox/snippetbox
 
-USER root
+RUN addgroup -S snippetbox && adduser -S -G snippetbox snippetbox
 
 # Create the logs directory with the appropriate permissions
 RUN mkdir -p /home/snippetbox/logs && chown -R snippetbox:snippetbox /home/snippetbox/logs && chmod 755 /home/snippetbox/logs
 
 USER snippetbox
-WORKDIR /home
+WORKDIR /home/snippetbox
 EXPOSE 4000
 
-ENTRYPOINT ["/home/snippetbox"]
+ENTRYPOINT ["/home/snippetbox/snippetbox"]
