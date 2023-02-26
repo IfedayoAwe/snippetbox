@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/tls"
 	"database/sql"
+	"errors"
 	"flag"
 	"fmt"
 	"log"
@@ -44,13 +45,13 @@ type application struct {
 }
 
 func main() {
-	// path := "logs"
-	// if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
-	// 	err := os.Mkdir(path, os.ModePerm)
-	// 	if err != nil {
-	// 		log.Fatal(err)
-	// 	}
-	// }
+	path := "logs"
+	if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
+		err := os.Mkdir(path, os.ModePerm)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
 	var err error
 	mydir, err := os.Getwd()
 	if err != nil {

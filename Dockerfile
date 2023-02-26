@@ -22,10 +22,9 @@ COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=builder /etc/passwd /etc/passwd
 COPY --from=builder /home/snippetbox/snippetbox /home/snippetbox/snippetbox
 
-RUN addgroup -S snippetbox && adduser -S -G snippetbox snippetbox
+RUN chown -R snippetbox:snippetbox /home/snippetbox
 
-# Create the logs directory with the appropriate permissions
-RUN mkdir -p /home/snippetbox/logs && chown -R snippetbox:snippetbox /home/snippetbox/logs && chmod 755 /home/snippetbox/logs
+USER snippetbox
 WORKDIR /home/snippetbox
 EXPOSE 4000
 
