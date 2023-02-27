@@ -4,7 +4,8 @@ RUN /sbin/apk update && \
 	/sbin/apk --no-cache add ca-certificates git tzdata && \
 	/usr/sbin/update-ca-certificates
 
-RUN adduser -D -g '' snippetbox
+RUN adduser -D -g '' --username snippetbox snippetbox
+
 WORKDIR /home/snippetbox
 
 COPY . /home/snippetbox
