@@ -69,7 +69,7 @@ func main() {
 	defer errFile.Close()
 
 	dbUser, dbPass, dbName := os.Getenv("DBUSER"), os.Getenv("DBPASS"), os.Getenv("DBNAME")
-	conf := fmt.Sprintf("%s:%s@/%s?parseTime=true", dbUser, dbPass, dbName)
+	conf := fmt.Sprintf("%s:%s@tcp(snippetbox_db:3306)/%s?parseTime=true", dbUser, dbPass, dbName)
 
 	addr := flag.String("addr", ":4000", "HTTP network address")
 	debug := flag.Bool("debug", false, "Enable debug mode")
@@ -77,8 +77,8 @@ func main() {
 	secret := flag.String("secret", "s6Ndh+pPbnzHbS*+9Pk8qGWhTzbpa@ge", "Secret key")
 	flag.Parse()
 
-	infoLog := log.New(infoFile, "INFO\t", log.Ldate|log.Ltime)
-	errorLog := log.New(errFile, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	infoLog := log.New(os.Stderr, "INFO\t", log.Ldate|log.Ltime)
+	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
 	db, err := openDB(*dsn)
 	if err != nil {
