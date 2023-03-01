@@ -23,8 +23,8 @@ This repository contains the the code that each file in the project directory of
 
 ## Docker Image
  <a href="https://hub.docker.com/repository/docker/ifedayoawe/snippetbox/general" target="_blank"> Snippetbox-docker-image </a>
-To pull the docker image *docker pull ifedayoawe/snippetbox:latest* which will automatically pull the latest version.
-To run the container DBPASS, DBUSER and DBNAME enviromental variables representing a database password, user and name needs to be set on the container, the default application port is *4000* and the database conection '@tcp(snippetbox_db:3306)' here snippetbox_db refers to a running mysql container with same configurations set, an easy way would be to use my docker-compose.yml file to automate the process, of course a .env file containing the enviromental variables would be needed.
+To pull the docker image **docker pull ifedayoawe/snippetbox:1** which will automatically pull the image.
+To run the container DBPASS, DBUSER and DBNAME enviromental variables representing a database password, user and name needs to be set on the container, the default application port is **4000** and the database conection **@tcp(snippetbox_db:3306)** here snippetbox_db refers to a running mysql container with same configurations set, an easy way would be to use my docker-compose.yml file to automate the process, of course a .env file containing the enviromental variables would be needed.
 
 
 ```
