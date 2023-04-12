@@ -52,7 +52,7 @@ func main() {
 			log.Fatal(err)
 		}
 	}
-	var err error
+
 	mydir, err := os.Getwd()
 	if err != nil {
 		log.Fatal(err.Error())
