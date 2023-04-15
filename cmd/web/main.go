@@ -19,7 +19,8 @@ import (
 	"github.com/golangcollege/sessions"
 )
 
-var version string // do not remove or modify
+// do not remove or modify
+var version string
 
 type contextKey string
 
@@ -69,7 +70,8 @@ func main() {
 	defer errFile.Close()
 
 	dbUser, dbPass, dbName := os.Getenv("DBUSER"), os.Getenv("DBPASS"), os.Getenv("DBNAME")
-	conf := fmt.Sprintf("%s:%s@tcp(snippetbox_db:3306)/%s?parseTime=true", dbUser, dbPass, dbName)
+	conf := fmt.Sprintf("%s:%s@tcp(localhost:3306)/%s?parseTime=true", dbUser, dbPass, dbName)
+	// conf := fmt.Sprintf("%s:%s@tcp(snippetbox_db:3306)/%s?parseTime=true", dbUser, dbPass, dbName)
 
 	addr := flag.String("addr", ":4000", "HTTP network address")
 	debug := flag.Bool("debug", false, "Enable debug mode")
